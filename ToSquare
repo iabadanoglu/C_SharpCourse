@@ -1,0 +1,30 @@
+public static class Solution
+{
+    static string _message;
+    static bool b = true;
+    static int num;
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Please enter an integer type number you want to square.");
+        ToSquare();
+    }
+
+    static void ToSquare()
+    {
+        try
+        {
+            b = true;
+            num = Convert.ToInt32(Console.ReadLine());
+        }
+        catch (FormatException ex)
+        {
+            b = false;
+            Console.WriteLine("Type error: Please input an integer number!");
+            ToSquare();
+        }
+        finally
+        {
+            if (b) Console.WriteLine("Square of " + num + " is : " + (num * num));
+        }
+    }
+}
