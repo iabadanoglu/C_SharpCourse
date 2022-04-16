@@ -7,30 +7,6 @@ namespace CS_Course
         static int num = 0;
         static void Main(string[] args)
         {
-            /*
-            int time = DateTime.Now.Hour;
-            string message = time >= 6 && time < 11 ? "Goodmorning" : time <= 18 ? "Good days" : "good night";
-            Console.WriteLine(message);
-            */
-
-            /*
-            string message = "";
-            int N = Convert.ToInt32(Console.ReadLine().Trim());
-
-            if (N % 2 == 1)
-            {
-                message = "Weird";
-            }
-            else
-            {
-                if (N >= 2 && N <= 5) message = "Not weird";
-                else if (N >= 6 && N <= 20) message = "Weird";
-                else if (N > 20) message = "Weird";
-            }
-            
-            Console.WriteLine(message);
-            */
-            
             Console.WriteLine("Please enter a number that grater than 0 and smaller than 10.");
             FindNumber();
         }
