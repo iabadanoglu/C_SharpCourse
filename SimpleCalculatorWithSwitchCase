@@ -1,0 +1,49 @@
+using System;
+
+public static class Calculator
+{
+
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Please, input first number");
+        float val1 = Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine("Please, input the operator sign");
+        string op = Console.ReadLine();
+
+        Console.WriteLine("Please, input second number");
+        float val2 = Convert.ToInt32(Console.ReadLine());
+
+        float sum = solveMeFirst(val1, val2, op);
+        
+        Console.WriteLine(sum);
+    }
+
+    static float solveMeFirst(float a, float b, string op)
+    {
+        float result = 0;
+        
+        if (op == "+") result = a + b;
+        else if (op == "-") result = a - b;
+        else if (op == "*") result = a * b;
+        else if (op == "/") result = a / b;
+        
+        switch(op)
+        {
+          case "+":
+            result = a + b;
+            break;
+          case "-":
+            result = a - b;
+            break;
+          case "*":
+            result = a * b;
+            break;
+          case "/":
+            result = a / b;
+            break;
+       }
+
+        return result;
+    }
+}
