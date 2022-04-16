@@ -1,0 +1,66 @@
+internal class Loops
+    {
+        static int _num = 10;
+        static void Main(string[] args)
+        {
+            GetInput();
+        }
+
+        static void GetInput()
+        {
+            Console.WriteLine("Please press key '1' for the number '10' to be sorted with a for loop, press key '2' for a while loop and press key '3'  for Do-While loop.");
+            int num = int.Parse(Console.ReadLine());
+
+            LoopSelector(num);
+        }
+        
+        static void LoopSelector(int num)
+        {
+            switch (num)
+            {
+                case 1:
+                    ForPractise();
+                    break;
+                case 2:
+                    WhilePractise();
+                    break;
+                case 3:
+                    DOWhilePractise();
+                    break;
+                default:
+                    Console.WriteLine("You did not enter the appropriate number!");
+                    GetInput();
+                    break;
+            }
+        }
+        
+        static void WhilePractise()
+        {
+            int num = 0;
+
+            while(num < _num)
+            {
+                Console.WriteLine("'while loop' nummber is: " + num);
+                num++;
+            }
+        }
+
+        static void DOWhilePractise()
+        {
+            int num = 0;
+
+            do
+            {
+                Console.WriteLine("'do while loop' nummber is: " + num);
+                num++;
+            } while (num < _num);
+        }
+
+        static void ForPractise()
+        {
+            for (int i = 1; i <= _num; i++)
+            {
+                Console.WriteLine("'for loop' nummber is: " + num);
+            }
+        }
+    }
