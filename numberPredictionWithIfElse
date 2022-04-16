@@ -1,0 +1,94 @@
+
+namespace CS_Course
+{
+    internal class Program
+    {
+        static bool rightGuess;
+        static int num = 0;
+        static void Main(string[] args)
+        {
+            /*
+            int time = DateTime.Now.Hour;
+            string message = time >= 6 && time < 11 ? "Goodmorning" : time <= 18 ? "Good days" : "good night";
+            Console.WriteLine(message);
+            */
+
+            /*
+            string message = "";
+            int N = Convert.ToInt32(Console.ReadLine().Trim());
+
+            if (N % 2 == 1)
+            {
+                message = "Weird";
+            }
+            else
+            {
+                if (N >= 2 && N <= 5) message = "Not weird";
+                else if (N >= 6 && N <= 20) message = "Weird";
+                else if (N > 20) message = "Weird";
+            }
+            
+            Console.WriteLine(message);
+            */
+            
+            Console.WriteLine("Please enter a number that grater than 0 and smaller than 10.");
+            FindNumber();
+        }
+        
+        static void FindNumber()
+        {
+            if (Console.ReadLine() == "e" || Console.ReadLine() == "E") return;
+
+            string str = Console.ReadLine();
+
+            bool b = expectedNumber(str);
+
+            if (b)
+            {
+
+                Random rnd = new Random();
+                int _num = rnd.Next(11);
+
+                rightGuess = num == _num;
+
+                string _message = rightGuess ? "Congratulations! You guessed the retained number correctly." :
+                                                "Unfortunately, you did not guess the number correctly. Enter another number to try again. " +
+                                                "\nIf you are bored, press the e button to end the game.";
+
+
+
+                if (rightGuess)
+                {
+                    Console.WriteLine(_message);
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine(_message);
+                    FindNumber();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please enter a number that grater than 0 and smaller than 10.");
+                FindNumber();
+            }
+        }
+
+        static bool expectedNumber(string _str)
+        {
+            bool _b = true;
+
+            if (_str.Length > 1 || _str == "")
+            {
+               return false;
+            }
+
+            foreach (char chr in _str)
+            {
+                if (!Char.IsNumber(chr)) return false;
+            }
+            return true;
+        }
+    }
+}
