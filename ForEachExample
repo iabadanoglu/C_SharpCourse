@@ -1,0 +1,22 @@
+public static class Program
+{
+    static void Main(string[] args)
+    {
+        SumMaleFemale();
+    }
+
+    public static void SumMaleFemale()
+    {
+        char[] gender = { 'f', 'm', 'f', 'f', 'f', 'm', 'm', 'm', 'm', 'f', 'm', 'm', 'm', 'f', 'f', 'f', 'f' };
+        
+        int[] sum = new int[] { 0, 0 };
+        
+        foreach (char g in gender)
+        {
+            if (g == 'm') sum[0]++;
+            else if (g == 'f') sum[1]++;
+        }
+
+        Console.WriteLine("Number of male = " + sum[0] + " and number of female = " + sum[1]);
+    }
+}
