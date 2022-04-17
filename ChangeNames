@@ -1,0 +1,43 @@
+void ChangeNames()
+{
+            List<string> names = new List<string>{ "Jane", "Mary", "Alice", "Tom", "John", "Frank", "Alice", "Tom", "Jane", "Mark", "Alice", "Teresa" };
+            string[] _names =new string[names.Count];
+            names.CopyTo(_names);
+
+            Console.WriteLine("--- Before names changed ---");
+
+            for (int i = 0; i < names.Count; i++)
+            {
+                Console.WriteLine("names[" + i + "] = " + names[i] + " -- " + "_names[" + i + "] = " + names[i]);
+            }
+
+            List<int> indexes=new List<int>();
+
+
+            for (int i = 0; i < names.Count; i++)
+            {
+                if (names[i] == "Alice")
+                {
+                    indexes.Add(i);
+                }
+            }
+
+
+            for (int i = 0; i < names.Count; i++)
+            {
+                for(int j=0; j < indexes.Count; j++)
+                {
+                    if(i == indexes[j])
+                    {
+                        names[i] = "Arthur";
+                    }
+                }
+            }
+
+            Console.WriteLine("\n--- After names changed! ---");
+
+            for (int i = 0; i < names.Count; i++)
+            {
+                Console.WriteLine("names[" + i + "] = " + names[i] + " -- " + "_names[" + i + "] = " + _names[i]);
+            }
+}
