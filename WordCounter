@@ -1,0 +1,19 @@
+public static class Program
+{
+    static void Main(string[] args)
+    {
+        string str = "Hello, Extension Methods. Hello; Extension Methods.";
+        int numWords = str.WordCount();
+
+        Console.WriteLine(numWords);
+    }
+}
+
+public static class WordCounter
+{
+    public static int WordCount(this string str)
+    {
+        return str.Split(new char[] { ' ', '.', '?', ',', '!', ':', ';' },
+                         StringSplitOptions.RemoveEmptyEntries).Length;
+    }
+}
