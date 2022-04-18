@@ -1,0 +1,25 @@
+class RefValueSample
+    {
+        static int num1 = 10;
+        static int num2 = 20;
+        static int sum = 0;
+        static void Main(string[] args)
+        {
+            sum = AddNums(ref num1, ref num2, false);
+            Console.WriteLine("Number 1 + Number 2 = Sum\n" + num1 + " + " + num2 + " = " + sum);
+
+            sum = AddNums(ref num1, ref num2, true);
+            Console.WriteLine("Number 1 + Number 2 = Sum\n" + num1 + " + " + num2 + " = " + sum);
+        }
+
+        static int AddNums(ref int num1, ref int num2, bool b)
+        {
+            if (b)
+            {
+                num1++;
+                num2++;
+            }
+
+            return (num1 + num2);
+        }
+    }
