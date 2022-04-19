@@ -1,0 +1,47 @@
+public class Program
+    {
+        static void Main(string[] args)
+        {
+            StringConcatAndReplace();
+        }
+
+        static void StringConcatAndReplace()
+        {
+             string gameEngine = "A Game engine or also known as game architecture or framework is a software development environment " +
+                "that is used by game developers to build interactive video games. \n\nDevelopers construct games for consoles computers, " +
+                "and mobile devices using gaming engines as the engine are reusable components used to build the framework of the game. " +
+                "\nEvery average game engine enables developers to add general features like physics, input, rendering, scripting, collision " +
+                "detection AI and more without the need to code them. \n\nAlthough there are several game engines out there but we shall " +
+                "discuss & weigh that two titans of the gaming industry unity and unreal engine.Let us read on.\n";
+
+            string unity = "\nAnnounced and released in 2005 at Apple Inc’s WDC, Unity is a cross-platform game engine developed by Unity " +
+                "Technologies. The game engine supports more than 25 platforms including Windows, macOS, and also consoles and virtual reality " +
+                "platforms like PlayStation VR Xbox One, Oculus Rift, Daydream & many more. Unity game engine is adopted by many users as it " +
+                "gives the users ability to create games & experience them in 2D, 3D as well as in virtual reality. Outside of the game industry, " +
+                "it is also used by other industries such as film, automotive, architecture, engineering, and construction.\n";
+
+            string unreal = "\nTim Seveeny, the founder of Epic Games developed the first generation of unreal engine and it first showcased " +
+                "in the 1998 first-person shooter game unreal. The Unreal game engine features a high degree of portability, supporting a wide " +
+                "range of platforms. The gaming engine proves to be a great foundation for creating next-generation physics and graphics and has " +
+                "become an industry-standard winning ton of awards from various gaming publications.\n";
+
+            string link = "\nLink: https://hackr.io/blog/unity-vs-unreal-engine#:~:text=Unity%20has%20a%20wide%20range,making%20the%20development%20process%20easier.";
+        
+            string[] gameEnginesArr = {gameEngine, unity, unreal, link};
+
+            string gameEngines=StringConcat(gameEnginesArr);
+
+            gameEngines = gameEngines.Replace("Unity", "unity 3D");
+
+            Console.WriteLine(gameEngines);
+
+        }
+
+        static string StringConcat(string[] unityAndUnreal)
+        {
+            string gameEngines = "";
+            gameEngines=String.Concat(gameEngines, unityAndUnreal[0], unityAndUnreal[1], unityAndUnreal[2], unityAndUnreal[3]);
+
+            return gameEngines;
+        }
+    }
