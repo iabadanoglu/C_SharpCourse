@@ -1,0 +1,26 @@
+class Program
+{
+    static bool firstTime = true;
+    static void Main(string[] args)
+    {
+        DayOfAnyDate();
+    }
+
+    static void DayOfAnyDate()
+    {
+        if (firstTime) Console.WriteLine("You can find out what day any date is. \nPlease enter the date you want to know the day of, as \nyear, month, day.\nExample: 2050, 7, 27");
+        //DateTime dateValue = new DateTime(2008, 6, 21);
+
+        try
+        {
+            DateTime dateValue = DateTime.Parse(Console.ReadLine());
+            Console.WriteLine(dateValue.ToString("dddd"));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Please enter the date in true format. Example: 2050,7,27");
+            firstTime = false;
+            DayOfAnyDate();
+        }
+    }
+}
