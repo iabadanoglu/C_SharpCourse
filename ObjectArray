@@ -1,0 +1,15 @@
+class ObjectArray
+{
+    static void Main(string[] args)
+    {
+            object[] objectArray = new object[5];
+            objectArray[0]= 3;
+            objectArray[1]= 2;
+            objectArray[2]= 1;
+            objectArray[3] = "Hello ";
+            objectArray[4] = "World!";
+
+            foreach(var obj in objectArray)
+                Console.WriteLine(obj.ToString());
+    }
+}
