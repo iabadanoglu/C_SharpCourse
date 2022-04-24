@@ -1,0 +1,142 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SearchStudentPoints
+{
+    internal class Program
+    {
+        static int num = 1;
+        static List<Students> students = new List<Students>();
+        static ArrayList _student = new ArrayList();
+        static void Main(string[] args)
+        {
+            AddRecords();
+
+            SearchRecords();
+        }
+
+        static void AddRecords()
+        {
+            Students student1 = new Students
+            {
+                name = "Selen",
+                num = 1,
+                gender = "female",
+                v1 = 80,
+                v2 = 85,
+                f1 = 90,
+                f2 = 95
+            };
+
+            Students student2 = new Students
+            {
+                name = "Mert",
+                num = 2,
+                gender = "male",
+                v1 = 70,
+                v2 = 75,
+                f1 = 80,
+                f2 = 85
+            };
+
+            Students student3 = new Students
+            {
+                name = "Nilay",
+                num = 3,
+                gender = "female",
+                v1 = 90,
+                v2 = 85,
+                f1 = 90,
+                f2 = 100
+            };
+
+            Students student4 = new Students
+            {
+                name = "Nihat",
+                num = 4,
+                gender = "male",
+                v1 = 55,
+                v2 = 40,
+                f1 = 40,
+                f2 = 45
+            };
+
+            students.Add(student1);
+            students.Add(student2);
+            students.Add(student3);
+            students.Add(student4);
+        }
+
+        static void SearchRecords()
+        {
+            Console.WriteLine("You can see four students avarage of points\n1 - Selen\n2 - Mert\n3 - Nilay\n4 - Nihat\n");
+            Console.WriteLine("Please enter name or number of the student that you want to see points.\n");
+            Console.WriteLine("If you want to end the searching, please press the 'e' button.");
+
+            while (num != 0)
+            {
+                int numS = 0;
+                string name = "";
+
+                string _str = Console.ReadLine();
+
+                bool b = isNum(_str);
+
+                if(b) numS = int.Parse(_str);
+                else name = _str.ToLower();
+                
+                if (name.ToLower() == "e")
+                {
+                    num = 0;
+                    return;
+                }
+
+                int numCount = 0;
+                foreach (var student in students)
+                {
+                    if (name == student.name.ToLower() || numS == student.num)
+                    {
+                        student.Avg();
+                        numCount++;
+                    }
+                }
+
+                if (numCount == 0) Console.WriteLine("Searching your record is not found");
+
+                num++;
+            }
+        }
+
+        static bool isNum(string str)
+        {
+            if (str == "") return false;
+
+            long number1 = 0;
+            bool canConvert = long.TryParse(str, out number1);
+
+            return canConvert;
+        }
+    }
+
+    public class Students
+    {
+        public string name;
+        public int num;
+        public string gender;
+        public float avg = 0, f1 = 0, f2 = 0, v1 = 0, v2 = 0;
+
+        public void Avg()
+        {
+            avg = .7f * (f1 + f2) / 2 + .3f * (v1 + v2) / 2;
+
+            string g = gender == "female" ? "She" : "He";
+            //string _g = gender == "femle" ? "Her" : "His";
+
+            string sFull = avg >= 50 ? "\n" + g + " is successful" : "\n" + g + " is not successful";
+
+            if (avg >= 50) Console.WriteLine(name + "'s avarage point is : " + avg + sFull);
+            else Console.WriteLine(name + "'s avarage point is : " + avg + sFull);
+        }
+    }
+}
