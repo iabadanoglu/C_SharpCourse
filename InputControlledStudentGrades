@@ -1,0 +1,317 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace ICStudentGrades
+{
+    internal class Program
+    {
+        static string message = "";
+        static int num = 1, count = 0;
+        //static string exit = "e", record = "r", search = "s", mode = "r";
+        static List<Students> students = new List<Students>();
+        static ArrayList _student = new ArrayList();
+        static Students student = new Students();
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Please press the 'r/R' key to add records or the 's/S' key to find the records.\n" +
+                "Press the 'e/E' button to exit the program.");
+            AddRecords();
+        }
+
+        static bool CheckFormat(string f, string str)
+        {
+            bool b = true;
+
+            char[] chars = str.ToCharArray();
+
+            if (f == "n")
+            {
+                if (str.Length < 2)
+                {
+                    b = false;
+                    message = "Name cannot be less than 2 characters";
+                }
+
+                for(int i = 0; i < chars.Length; i++)
+                {
+                    if(char.IsDigit(chars[i]))
+                    {
+                        b = false;
+                        message = "Name cannot contain numeric characters";
+                    }
+                }
+            }
+            else if(f == "g")
+            {
+                for (int i = 0; i < chars.Length; i++)
+                {
+                    if (chars[i] != '-')
+                    {
+                        if (!char.IsDigit(chars[i]))
+                        {
+                            message = "Student grade must be a numeric character";
+                            b = false;
+                        }
+                    }
+                }
+
+                if(b)
+                {
+                    int num = int.Parse(str);
+
+                    if (num < 0 || num > 100)
+                    {
+                        message = "Student grade cannot be less than 0 and greater than 100.";
+                        b = false;
+                    }
+                }
+            }
+            else if(f=="nn")
+            {
+                for (int i = 0; i < chars.Length; i++)
+                {
+                    if (chars[i] != '-')
+                    {
+                        if (!char.IsDigit(chars[i]))
+                        {
+                            message = "Student number must be a numeric character";
+                            b = false;
+                        }
+                    }
+                }
+
+                if(b)
+                {
+                    if (int.Parse(str) < 0)
+                    {
+                        message = "Student number must be a positive number";
+                        b = false;
+                    }
+
+                    foreach (var student in students)
+                    {
+                        if (int.Parse(str) == student.Num)
+                        {
+                            message = "Student number must be unique!";
+                            b = false;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return b;
+        }
+        static void AddRecords()
+        {
+            bool b;
+            student = new Students();
+
+            AddName();
+            AddNum();
+            AddVisa();
+            AddFinal();
+
+            students.Add(student);
+
+            AddRecords();
+        }
+
+        static void AddName()
+        {
+            bool b;
+
+            if (count > 0) Console.WriteLine(message);
+
+            Console.WriteLine("\nName :");
+            string s = Console.ReadLine();
+            ChangeActivity("r", s);
+
+            b = CheckFormat("n", s);
+
+            if (b)
+            {
+                count = 0;
+                student.Name = s;
+            }
+            else
+            {
+                count++;
+                AddName();
+            }
+        }
+
+        static void AddNum()
+        {
+            bool b;
+
+            if (count > 0) Console.WriteLine(message);
+
+            Console.WriteLine("Number :");
+            string num = Console.ReadLine();
+
+            ChangeActivity("r", num);
+
+            b = CheckFormat("nn", num);
+
+            if (b)
+            {
+                count = 0;
+                student.Num = int.Parse(num);
+            }
+            else
+            {
+                count++;
+                AddNum();
+            }
+        }
+
+        static void AddVisa()
+        {
+            bool b;
+
+            if (count > 0) Console.WriteLine(message);
+
+            Console.WriteLine("Visa score :");
+            string num = Console.ReadLine();
+            ChangeActivity("r", num);
+
+            b = CheckFormat("g", num);
+
+            if (b)
+            {
+                count = 0;
+                student.V = int.Parse(num);
+            }
+            else
+            {
+                count++;
+                AddVisa();
+            }
+        }
+
+        static void AddFinal()
+        {
+            bool b;
+
+            if (count > 0) Console.WriteLine(message);
+
+            Console.WriteLine("Final score :");
+            string num = Console.ReadLine();
+            ChangeActivity("r", num);
+
+            b = CheckFormat("g", num);
+
+            if (b)
+            {
+                count = 0;
+                student.F = int.Parse(num);
+            }
+            else
+            {
+                count++;
+                AddFinal();
+            }
+        }
+
+        static void SearchRecords()
+        {
+            Console.WriteLine("Please enter name or number of the student that you want to see grades.\n");
+
+            int numS = 0;
+            string name = "";
+
+            string _str = Console.ReadLine();
+
+            ChangeActivity("s", _str.ToLower());
+
+            bool b = isNum(_str);
+
+            if (b) numS = int.Parse(_str);
+            else name = _str.ToLower();
+
+            int numCount = 0;
+            foreach (var student in students)
+            {
+                if (name == student.Name.ToLower() || numS == student.Num)
+                {
+                    student.Avg();
+                    numCount++;
+                }
+            }
+
+            if (numCount == 0) Console.WriteLine("\nCould not find the records you are looking for!");
+
+            SearchRecords();
+        }
+
+        static bool isNum(string str)
+        {
+            if (str == "") return false;
+
+            long number1 = 0;
+            bool canConvert = long.TryParse(str, out number1);
+
+            return canConvert;
+        }
+
+        static void CheckActivity(string s)
+        {
+            if (s.ToLower() == "e" || s.ToLower() == "s") ChangeActivity("r", s.ToLower());
+        }
+
+        static void ChangeActivity(string s, string _str)
+        {
+            string str = _str.ToLower();
+
+            if (str == "e" || str == "r" || str == "s")
+            {
+                if (str == "e") Environment.Exit(0); 
+                else if (s == "s" && str == "r") AddRecords();
+                else if (s == "r" && str == "s") SearchRecords();
+            }
+        }
+    }
+
+    public class Students
+    {
+        public string name;
+        public int num;
+        public float avg = 0, f = 0, v = 0;
+
+        public string Name
+        { 
+            get { return name; } 
+            set { name = value; }
+        }  
+        
+        public int Num
+        { 
+            get { return num; } 
+            set { num = value; } 
+        }
+
+        public float V
+        {
+            get { return v; }
+            set { v = value; }
+        }
+
+        public float F
+        {
+            get { return f; }
+            set { f = value; }
+        }
+
+        public void Avg()
+        {
+            avg = .7f * f + .3f * v;
+
+            string sFull = avg >= 50 ? "\n" + name + " is successful\n" : "\n" + name + " is not successful\n";
+
+            if (avg >= 50) Console.WriteLine("\n" + name + "'s avarage point is : " + avg + sFull);
+            else Console.WriteLine("\n" + name + "'s avarage point is : " + avg + sFull);
+        }
+    }
+}
