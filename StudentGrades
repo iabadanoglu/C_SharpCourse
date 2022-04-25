@@ -1,0 +1,149 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace StudentGrades
+{
+    internal class Program
+    {
+        static int num = 1;
+        static string exit = "e", record = "r", search = "s", mode = "r";
+        static List<Students> students = new List<Students>();
+        static ArrayList _student = new ArrayList();
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Please press the 'r/R' key to add records or the 's/S' key to find the records.\n" +
+                "Press the 'e/E' button to exit the program.");
+
+            Console.WriteLine("Please enter name or number of the student that you want to see grades.\n");
+            AddRecords();
+        }
+
+        static void AddRecords()
+        {
+            Students student = new Students();
+
+            Console.WriteLine("\nName :");
+            student.Name = Console.ReadLine();
+            ChangeActivity("r", student.Name);
+
+            Console.WriteLine("Number :");
+            string num = Console.ReadLine();
+            ChangeActivity("r", num);
+            student.Num = int.Parse(num);   
+
+            Console.WriteLine("Visa score :");
+            num = Console.ReadLine();
+            ChangeActivity("r", num);
+            student.V = int.Parse(num);
+
+            Console.WriteLine("Final score :");
+            num = Console.ReadLine();
+            ChangeActivity("r", num);
+            student.F = int.Parse(num);
+
+            students.Add(student);
+
+            AddRecords();
+        }
+
+        static void SearchRecords()
+        {
+            Console.WriteLine("Please enter name or number of the student that you want to see grades.\n");
+
+            int numS = 0;
+            string name = "";
+
+            string _str = Console.ReadLine();
+
+            ChangeActivity("s", _str.ToLower());
+
+            bool b = isNum(_str);
+
+            if (b) numS = int.Parse(_str);
+            else name = _str.ToLower();
+
+            int numCount = 0;
+            foreach (var student in students)
+            {
+                if (name == student.Name.ToLower() || numS == student.Num)
+                {
+                    student.Avg();
+                    numCount++;
+                }
+            }
+
+            if (numCount == 0) Console.WriteLine("\nCould not find the records you are looking for!");
+
+            SearchRecords();
+        }
+
+        static bool isNum(string str)
+        {
+            if (str == "") return false;
+
+            long number1 = 0;
+            bool canConvert = long.TryParse(str, out number1);
+
+            return canConvert;
+        }
+
+        static void CheckActivity(string s)
+        {
+            if (s.ToLower() == "e" || s.ToLower() == "s") ChangeActivity("r", s.ToLower());
+        }
+
+        static void ChangeActivity(string s, string _str)
+        {
+            string str = _str.ToLower();
+
+            if (str == "e" || str == "r" || str == "s")
+            {
+                if (str == "e") Environment.Exit(0); 
+                else if (s == "s" && str == "r") AddRecords();
+                else if (s == "r" && str == "s") SearchRecords();
+            }
+        }
+    }
+
+    public class Students
+    {
+        public string name;
+        public int num;
+        public float avg = 0, f = 0, v = 0;
+
+        public string Name
+        { 
+            get { return name; } 
+            set { name = value; }
+        }  
+        
+        public int Num
+        { 
+            get { return num; } 
+            set { num = value; } 
+        }
+
+        public float V
+        {
+            get { return v; }
+            set { v = value; }
+        }
+
+        public float F
+        {
+            get { return f; }
+            set { f = value; }
+        }
+
+        public void Avg()
+        {
+            avg = .7f * f + .3f * v;
+
+            string sFull = avg >= 50 ? "\n" + name + " is successful\n" : "\n" + name + " is not successful\n";
+
+            if (avg >= 50) Console.WriteLine("\n" + name + "'s avarage point is : " + avg + sFull);
+            else Console.WriteLine("\n" + name + "'s avarage point is : " + avg + sFull);
+        }
+    }
+}
