@@ -1,0 +1,94 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AirTemperature
+{
+    class Program
+    {
+        static int temperature = 0;
+        static string message = "";
+        static int count = 0;
+        static void Main(string[] args)
+        {
+            Console.WriteLine("You will see air temperature messages on the console according to the temperature values ​​you entered.", Console.ForegroundColor = ConsoleColor.Green);
+            Console.WriteLine("Please press a key to start.", Console.ForegroundColor = ConsoleColor.White);
+
+            if (Console.ReadLine() != null) CheckTemp();  
+        }
+
+        static void EnterTemperatureValue()
+        {
+            bool b = true;
+
+            if (message.Length > 0)
+            {
+                Console.WriteLine(message, Console.ForegroundColor = ConsoleColor.Red);
+                Console.WriteLine("Please enter the value to check", Console.ForegroundColor = ConsoleColor.White);
+            }
+            else Console.WriteLine("Please enter the value to check", Console.ForegroundColor = ConsoleColor.White);
+
+            string str = Console.ReadLine();
+
+            char[] chars = str.ToCharArray();
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                if (chars[i] != '-' && !char.IsDigit(chars[i]))
+                {
+                    b = false;
+                    break;
+                }
+            }
+
+            if (b)
+            {
+                temperature = int.Parse(str);
+                CheckTemp();
+            }
+            else
+            {
+                message = "Temperature value must be a number";
+                EnterTemperatureValue();
+            }
+        }
+        static void CheckTemp()
+        {
+            int veryCold = (int)temperatureValues.veryCold;
+            int cold = (int)temperatureValues.cold;
+            int warm = (int)temperatureValues.warm;
+            int normal = (int)temperatureValues.normal;
+            int hot = (int)temperatureValues.hot;
+            int veryHot = (int)temperatureValues.veryHot;
+
+            //hava = Convert.ToDouble(Console.ReadLine());
+            if (count != 0)
+            {
+                if (temperature <= veryCold) Console.WriteLine("It is very cold!!!\n", Console.ForegroundColor = ConsoleColor.DarkBlue);
+                else if (temperature >= veryCold && temperature < cold) Console.WriteLine("It is cold!\n", Console.ForegroundColor = ConsoleColor.Blue);
+                else if (temperature >= cold && temperature < warm) Console.WriteLine("It is warm\n", Console.ForegroundColor = ConsoleColor.Yellow);
+                else if (temperature >= warm && temperature < normal) Console.WriteLine("It is normal\n", Console.ForegroundColor = ConsoleColor.Gray);
+                else if (temperature >= normal && temperature < hot) Console.WriteLine("It is hot!\n", Console.ForegroundColor = ConsoleColor.Red);
+                else if (temperature >= hot) Console.WriteLine("It is very hot!!!\n", Console.ForegroundColor = ConsoleColor.DarkRed);
+            }
+
+            if(count == 0) count = 1;
+
+            message = "";
+            EnterTemperatureValue();
+        }
+    }
+
+    enum temperatureValues
+    {
+        veryCold =-10,
+        cold = 10,
+        warm = 15,
+        normal = 20,
+        hot = 35,
+        veryHot = 45
+    }
+}
+
